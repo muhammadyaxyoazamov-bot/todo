@@ -74,10 +74,11 @@ app.put("/todos/:id", async (req, res) => {
     const index = db.todos.findIndex((t) => t.id === req.params.id);
     if (index === -1) return res.status(404).json({ error: "Todo topilmadi" });
 
-    const { title, completed } = req.body;
+    const { title, description, completed } = req.body;
     const updated = {
       ...db.todos[index],
       ...(title !== undefined && { title }),
+      ...(description !== undefined && { description }),
       ...(completed !== undefined && { completed: Boolean(completed) }),
     };
     db.todos[index] = updated;

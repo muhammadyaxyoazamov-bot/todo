@@ -301,8 +301,17 @@ const Todos = () => {
     setEditDescription("");
   };
 
-  const handleUpdate = (id) => {
-    cancelEdit();
+  const handleUpdate = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/todos/${id}`, {
+        title: editTitle,
+        description: editDescription,
+      });
+      cancelEdit();
+      fetchTodos();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDelete = async (id) => {
